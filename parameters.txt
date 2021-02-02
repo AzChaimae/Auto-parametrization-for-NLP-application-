@@ -1,0 +1,27 @@
+Embedding_file					"--Embedding_file "             	c	("CBOW_HS_dict_200_5.npy","CBOW_HS_dict_200_92.npy",
+"CBOW_NS_dict_200_5.npy","CBOW_NS_dict_200_9.npy","SG_HS_dict_200_5.npy","SG_HS_dict_200_9.npy","SG_NS_dict_200_5.npy",
+"SG_NS_dict_200_9.npy","CBOW_HS_dict_300_5.npy","CBOW_HS_dict_300_9.npy","CBOW_NS_dict_300_5.npy","CBOW_NS_dict_300_9.npy",
+"SG_HS_dict_300_5.npy","SG_HS_dict_300_9.npy","SG_NS_dict_300_5.npy","SG_NS_dict_300_9.npy","CBOW_HS_dict_400_5.npy","CBOW_HS_dict_400_9.npy",
+"CBOW_NS_dict_400_5.npy","CBOW_NS_dict_400_9.npy","SG_HS_dict_400_5.npy","SG_HS_dict_400_9.npy","SG_NS_dict_400_5.npy","SG_NS_dict_400_9.npy",
+"Glove_400_5","Glove_400_9","Glove_200_5","Glove_200_9","Glove_300_5","Glove_300_9")
+#removed from the embeddings to avoid the memory error
+#"Fasttext_ContinuousBOW.vec"
+#"Fasttext_SkipGram.vec"
+method							"--method "							c	("Classification","Clustering")			
+#
+Flatten_layer					"--Flatten_layer "					c	(0,1)							|method=="Classification"
+GlobalAvergePooling1D_Layer		"--GlobalAvergePooling1D_Layer "	c	(0,1)							|method=="Classification"
+LSTM_Layer						"--LSTM_Layer "						c	(0,1)							|method=="Classification"
+Dropout_LSTM					"--Dropout_LSTM "					c	(0,1)							|LSTM_Layer %in% c(1) && method=="Classification"
+GRU_Layer						"--GRU_Layer "						c	(0,1)							|method=="Classification"
+GRU_dropout						"--GRU_dropout "					c	(0.0,0.2)						|GRU_Layer %in% c(1) && method=="Classification"	
+#GRU_reccurent_dropout			"--GRU_reccurent_dropout "			c	(0.0,0.2)						|GRU_Layer %in% c(1) && method=="Classification"
+Dense_activation				"--Dense_activation "				c	("softmax","relu","sigmoid")	|method=="Classification"
+compile_optimizer				"--compile_optimizer "				c	("SGD","Adam","Nadam")			|method=="Classification"
+N_batch_size					"--N_batch_size "					o	(1,200)							|method=="Classification"
+N_epochs						"--N_epochs "						o	(10,50)							|method=="Classification"
+#
+K_mean							"--K_mean "							c	(0,1)							|method=="Clustering"
+Mean_shift						"--Mean_shift "						c	(0,1)							|method=="Clustering"
+DBSCAN							"--DBSCAN "							c	(0,1)							|method=="Clustering"
+Agglometrative					"--Agglometrative "					c	(0,1)							|method=="Clustering"

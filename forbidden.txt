@@ -1,0 +1,28 @@
+## Template for specifying forbidden parameter configurations in irace.
+##
+## This filename must be specified via the --forbidden-file command-line option
+## (or forbiddenFile in scenario.txt).
+##
+## The format is one constraint per line. Each constraint is a logical
+## expression (in R syntax). If a parameter configuration
+## is generated that makes the logical expression evaluate to TRUE,
+## then the configuration is discarded.
+##
+## Examples of valid logical operators are: ==  !=  >=  <=  >  <  &  |  !  %in%
+#param1 < 5 & mode == "x1"
+#param2 > 6 & mode == "x1") | (param2 <= 6 & mode == "x2")
+#real < 4 & mode %in% c("x2", "x3")
+
+method=="Classification" & (K_mean==1 |Mean_shift==1 |DBSCAN==1 |Agglometrative==1)
+method=="Clustering" & (LSTM_Layer==1 |GRU_Layer==1 |Dense_activation=="softmax" |Dense_activation=="relu" |Dense_activation=="sigmoid" |compile_optimizer=="SGD" |compile_optimizer=="Adam" |compile_optimizer=="Nadam")
+method=="Clustering" & (K_mean==0 & Mean_shift==0 & DBSCAN==0 & Agglometrative==0)
+Flatten_layer==1 & GlobalAvergePooling1D_Layer==1
+K_mean==1 & (Mean_shift==1 |DBSCAN==1 |Agglometrative==1)
+Mean_shift==1 & (K_mean==1 |DBSCAN==1 |Agglometrative==1)
+DBSCAN==1 & (K_mean==1 |Mean_shift==1 |Agglometrative==1)
+Agglometrative==1 & (K_mean==1 |Mean_shift==1 |DBSCAN==1)
+LSTM_Layer==1 & GRU_Layer==1
+#GRU_dropout==0.0 & GRU_reccurent_dropout==0.2
+#GRU_dropout==0.2 & GRU_reccurent_dropout==0.0
+Flatten_layer==1 & (LSTM_Layer==1 | GRU_Layer==1)
+GlobalAvergePooling1D_Layer==1  & (LSTM_Layer==1 | GRU_Layer==1)
